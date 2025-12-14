@@ -24,20 +24,33 @@ const TextForm = (props) => {
       setText(newText)
    }
 
-   const handleCmClick = () =>{
+  //  const handleCmClick = () =>{
 
-    let newtext = text;
-    return newtext.split(/[\s_-]+/)
-    .map((a,b) =>{
-      if(b == 0){
-        return a.toLowerCase();
-      }
-      return a.charAt(0).toUpperCase()+a.slice(1).toLowerCase();
-    }).join('')
+  //   let newtext = text;
+  //   return newtext.split(/[\s_-]+/)
+  //   .map((a,b) =>{
+  //     if(b == 0){
+  //       return a.toLowerCase();
+  //     }
+  //     return a.charAt(0).toUpperCase()+a.slice(1).toLowerCase();
+  //   }).join('')
       
+  //  }
+
+
+   const handleCopy = () =>{
+
+    var text = document.getElementById("textBox")
+    text.select()
+    navigator.clipboard.writeText(text.value)
+
    }
 
+   const handleExtraSpaces = () => {
 
+    let newtext = text.split(/[ ]+/)
+    setText(newtext.join(" "))
+   }
 
    const handleChange = (e) =>{
       // console.log("helloooo")
@@ -58,7 +71,9 @@ const TextForm = (props) => {
 
        <button className='btn btn-primary mx-2' onClick={handleLClick}>Convert to Lowercase</button>
 
-       <button className='btn btn-primary mx-2' onClick={handleCmClick}>Convert to camelCase</button>
+       <button className='btn btn-primary mx-2' onClick={handleCopy}>Copy</button>
+
+       <button className='btn btn-primary mx-2' onClick={handleExtraSpaces}>Remove Extra Spaces</button>
 
        <button className='btn btn-primary mx-2' onClick={handleClearClick}>Clear Text</button>
 
