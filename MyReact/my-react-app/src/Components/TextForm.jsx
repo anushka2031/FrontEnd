@@ -9,6 +9,7 @@ const TextForm = (props) => {
       // console.log("hii")
       let newText = text.toUpperCase();
       setText(newText)
+      props.showAlert("Converted to upper case" , "success")
    }
 
    const handleLClick = () =>{
@@ -16,12 +17,14 @@ const TextForm = (props) => {
       // console.log("hii")
       let newText = text.toLowerCase();
       setText(newText)
+      props.showAlert("Converted to lower case" , "success")
    }
 
    const handleClearClick = () =>{
 
       let newText = "";
       setText(newText)
+      props.showAlert("Text area is cleared" , "success")
    }
 
   //  const handleCmClick = () =>{
@@ -43,6 +46,7 @@ const TextForm = (props) => {
     var text = document.getElementById("textBox")
     text.select()
     navigator.clipboard.writeText(text.value)
+    props.showAlert("Copied" , "success")
 
    }
 
@@ -50,6 +54,7 @@ const TextForm = (props) => {
 
     let newtext = text.split(/[ ]+/)
     setText(newtext.join(" "))
+    props.showAlert("Extra spaces are removed" , "success")
    }
 
    const handleChange = (e) =>{
@@ -59,12 +64,12 @@ const TextForm = (props) => {
 
   return (
     <>
-      <div>
+      <div style={{color: props.mode === 'dark' ? 'white' : 'black'}}>
          <h1>{props.heading}</h1>
 
        <div className="mb-3">
          {/* <label for="exampleFormControlTextarea1" className="form-label">Example textarea</label> */}
-         <textarea className="form-control" placeholder='Enter your text here' value={text} id="textBox" onChange={handleChange} rows="8"></textarea>
+         <textarea className="form-control" placeholder='Enter your text here' value={text} id="textBox" onChange={handleChange} style={{backgroundColor: props.mode === 'dark' ? 'black' : 'white',color: props.mode === 'dark' ? 'white' : 'black'}} rows="8"></textarea>
        </div>
 
        <button className='btn btn-primary mx-2' onClick={handleUClick}>Convert to Uppercase</button>
@@ -79,7 +84,7 @@ const TextForm = (props) => {
 
       </div>
 
-      <div className="container my-3 ">
+      <div className="container my-3 " style={{color: props.mode === 'dark' ? 'white' : 'black'}}>
         <h2>Your Text Summary</h2>
 
         <p>{text.split(" ").length} words , {text.length} characters and {text.split(".").length} sentences</p>
@@ -87,7 +92,7 @@ const TextForm = (props) => {
         <p>{0.008*text.split(" ").length} Minutes read</p>
 
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length>0?text:"Enter something in the text box above to preview in here"}</p>
 
       </div>
     </>
